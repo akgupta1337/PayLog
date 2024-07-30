@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/aleo</item>
+        <item>@font/andika</item>
+        <item>@font/autour_one</item>
+        <item>@font/baloo</item>
+        <item>@font/baloo_tamma_2_extrabold</item>
+        <item>@font/baloo_tamma_2_medium</item>
+        <item>@font/baloo_tamma_2_semibold</item>
+        <item>@font/baloo_tammudu_2_extrabold</item>
+        <item>@font/baloo_thambi</item>
+        <item>@font/black_han_sans</item>
+        <item>@font/bungee</item>
+        <item>@font/bungee_hairline</item>
+        <item>@font/bungee_inline</item>
+        <item>@font/bungee_shade</item>
+        <item>@font/candal</item>
+        <item>@font/diplomata</item>
+        <item>@font/fascinate_inline</item>
+        <item>@font/fredoka_one</item>
+        <item>@font/geo</item>
+        <item>@font/lilita_one</item>
+        <item>@font/palanquin_dark_bold</item>
+    </array>
+</resources>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:src="@drawable/asset_2"
+        android:translationZ="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top_frame">
+
+    </ImageView>
+
+
+
+
+    <!--    Top Colour-->
+    <FrameLayout
+        android:id="@+id/top_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C6FFC1">
+    </FrameLayout>
+
+
+    <!--    Middle Colour-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/middle_frame"
+        android:layout_width="match_parent"
+        android:layout_height="620dp"
+        android:background="@drawable/nav_bg2"
+        android:elevation="30dp"
+        android:padding="10dp"
+        android:translationZ="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baloo"
+            android:text="Select Export Type:"
+            android:textColor="#334443"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+        <Button
+            android:id="@+id/month"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/light"
+            android:fontFamily="@font/baloo"
+            android:text="Month"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/today"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="60dp"
+            android:backgroundTint="#334443"
+            android:fontFamily="@font/baloo"
+            android:text="Date"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/curr_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="-10dp"
+            android:backgroundTint="@android:color/transparent"
+            android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+            android:fontFamily="@font/baloo"
+            android:text="18 May 2024"
+            android:textColor="#334443"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/today">
+
+        </Button>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginTop="-220dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="-60dp"
+            app:layout_constraintTop_toBottomOf="@+id/curr_date">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:id="@+id/tableLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1">
+
+                    <TableRow>
+
+                    </TableRow>
+                </TableLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+        <Button
+            android:id="@+id/export_button"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:text="Export Now!"
+            android:backgroundTint="#334443"
+            android:fontFamily="@font/baloo"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="90dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    Contents-->
+    <TextView
+        android:id="@+id/toolbar_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/bungee"
+        android:text="Export\nYour Data"
+        android:textAlignment="center"
+        android:textColor="#334443"
+        android:textSize="38sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

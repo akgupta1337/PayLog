@@ -1,0 +1,39 @@
+<!-- res/layout/notification_big_content.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C6FFC1"
+    android:padding="10dp"
+    >
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/confirm_icon"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/icon"
+        android:layout_marginStart="8dp"
+        android:text="Big Content Title"
+        style="@style/TextAppearance.Compat.Notification.Title"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        style="@style/TextAppearance.Compat.Notification.Info"
+        android:layout_toEndOf="@id/icon"
+        android:layout_marginStart="8dp"
+        android:text="Detailed content goes here."
+        android:textColor="@color/black"/>
+
+</RelativeLayout>
+

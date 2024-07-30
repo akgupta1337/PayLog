@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeFragment">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/pie"
+        android:translationZ="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top_frame">
+
+    </ImageView>
+
+
+
+
+    <!--    Top Colour-->
+    <FrameLayout
+        android:id="@+id/top_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C6FFC1">
+    </FrameLayout>
+
+
+    <!--    Middle Colour-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/middle_frame"
+        android:layout_width="match_parent"
+        android:layout_height="680dp"
+        android:background="@drawable/nav_bg2"
+        android:elevation="30dp"
+        android:padding="10dp"
+        android:translationZ="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/month"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@color/light"
+            android:fontFamily="@font/baloo"
+            android:text="Month"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/today"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#334443"
+            android:fontFamily="@font/baloo"
+            android:text="Date"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/curr_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@android:color/transparent"
+            android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+            android:fontFamily="@font/baloo"
+            android:text="18 May 2024"
+            android:textColor="#334443"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/today">
+
+        </Button>
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/PieChart"
+            android:translationZ="-90dp"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="320dp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="10dp">
+
+        </com.github.mikephil.charting.charts.PieChart>
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/LineChart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/PieChart">
+
+        </com.github.mikephil.charting.charts.LineChart>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    Contents-->
+    <TextView
+        android:id="@+id/toolbar_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/bungee"
+        android:text="Analysis"
+        android:textAlignment="center"
+        android:textColor="#334443"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
