@@ -15,9 +15,9 @@ Below are some screenshots of the application:
     <img src="screenshots/3.jpeg" alt="Screenshot 3" width="260" />
 </div>
 <div>
-    <img src="screenshots/4.jpeg" alt="Screenshot 4" width="200" style="margin-right: 10px;" />
-    <img src="screenshots/5.jpeg" alt="Screenshot 5" width="200" style="margin-right: 10px;" />
-    <img src="screenshots/6.jpeg" alt="Screenshot 6" width="200" />
+    <img src="screenshots/4.jpeg" alt="Screenshot 4" width="260" style="margin-right: 10px;" />
+    <img src="screenshots/5.jpeg" alt="Screenshot 5" width="260" style="margin-right: 10px;" />
+    <img src="screenshots/6.jpeg" alt="Screenshot 6" width="260" />
 </div>
 
 
