@@ -10,17 +10,17 @@ Below are some screenshots of the application:
 
 
 <div>
-    <img src="screenshots/1.jpeg" alt="Screenshot 1" width="300" />
-    <img src="screenshots/2.jpeg" alt="Screenshot 2" width="300" />
+    <img src="screenshots/1.jpeg" alt="Screenshot 1" width="200" style="margin-right: 10px;" />
+    <img src="screenshots/2.jpeg" alt="Screenshot 2" width="200" style="margin-right: 10px;" />
+    <img src="screenshots/3.jpeg" alt="Screenshot 3" width="200" />
 </div>
 <div>
-    <img src="screenshots/3.jpeg" alt="Screenshot 3" width="300" />
-    <img src="screenshots/4.jpeg" alt="Screenshot 4" width="300" />
+    <img src="screenshots/4.jpeg" alt="Screenshot 4" width="200" style="margin-right: 10px;" />
+    <img src="screenshots/5.jpeg" alt="Screenshot 5" width="200" style="margin-right: 10px;" />
+    <img src="screenshots/6.jpeg" alt="Screenshot 6" width="200" />
 </div>
-<div>
-    <img src="screenshots/5.jpeg" alt="Screenshot 5" width="300" />
-    <img src="screenshots/6.jpeg" alt="Screenshot 6" width="300" />
-</div>
+
+
 ## Features
 
 - **Real-Time Expense Logging**: As soon as a payment is made, Paylog asks for the purpose, ensuring you never forget the reason for any transaction.
