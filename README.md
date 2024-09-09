@@ -8,13 +8,19 @@ Paylog is an innovative expense tracker app designed to monitor expenses in real
 
 Below are some screenshots of the application:
 
-1. ![Screenshot 1](screenshots/1.jpeg)
-2. ![Screenshot 2](screenshots/2.jpeg)
-3. ![Screenshot 3](screenshots/3.jpeg)
-4. ![Screenshot 4](screenshots/4.jpeg)
-5. ![Screenshot 5](screenshots/5.jpeg)
-6. ![Screenshot 6](screenshots/6.jpeg)
 
+<div>
+    <img src="screenshots/1.jpeg" alt="Screenshot 1" width="300" />
+    <img src="screenshots/2.jpeg" alt="Screenshot 2" width="300" />
+</div>
+<div>
+    <img src="screenshots/3.jpeg" alt="Screenshot 3" width="300" />
+    <img src="screenshots/4.jpeg" alt="Screenshot 4" width="300" />
+</div>
+<div>
+    <img src="screenshots/5.jpeg" alt="Screenshot 5" width="300" />
+    <img src="screenshots/6.jpeg" alt="Screenshot 6" width="300" />
+</div>
 ## Features
 
 - **Real-Time Expense Logging**: As soon as a payment is made, Paylog asks for the purpose, ensuring you never forget the reason for any transaction.
