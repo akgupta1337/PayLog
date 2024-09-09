@@ -10,9 +10,9 @@ Below are some screenshots of the application:
 
 
 <div>
-    <img src="screenshots/1.jpeg" alt="Screenshot 1" width="210" style="margin-right: 10px;" />
-    <img src="screenshots/2.jpeg" alt="Screenshot 2" width="210" style="margin-right: 10px;" />
-    <img src="screenshots/3.jpeg" alt="Screenshot 3" width="210" />
+    <img src="screenshots/1.jpeg" alt="Screenshot 1" width="250" style="margin-right: 10px;" />
+    <img src="screenshots/2.jpeg" alt="Screenshot 2" width="250" style="margin-right: 10px;" />
+    <img src="screenshots/3.jpeg" alt="Screenshot 3" width="250" />
 </div>
 <div>
     <img src="screenshots/4.jpeg" alt="Screenshot 4" width="200" style="margin-right: 10px;" />
