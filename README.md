@@ -39,8 +39,11 @@ Paylog is perfect for businesses and individuals who make frequent payments and 
 
 ## Future Plans
 
-- **OpenAI API Integration**: Implement OpenAI API to automatically categorize payment purposes and generate insights.
+- **GoogleGemini(coz its free) API Integration**: Implement OpenAI API to automatically categorize payment purposes and generate insights.
 - **Personal Chatbot**: Develop a personal chatbot to assist with expense tracking and provide insights.
+- **Cash Flow Insights**: Enhance the app's analytics by providing cash flow-based insights. This could help users understand their financial health better, making it easier for them to apply for loans.
+- **Financial Literacy Tools**: Add educational resources or tools that promote financial literacy. This could include tips on managing expenses, understanding credit scores, and how to improve creditworthiness.
+- **Creditworthiness Assessment**: Implement a feature that analyzes users' spending and payment history to provide insights into their creditworthiness, which could be beneficial when seeking loans.
 
 ## Installation
 
