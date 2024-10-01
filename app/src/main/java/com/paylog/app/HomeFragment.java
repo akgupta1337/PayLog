@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -14,6 +15,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,15 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -47,6 +58,9 @@ public class HomeFragment extends Fragment {
     private TableLayout tableLayout;
     private  Button payNow;
     String currentDate;
+    private Map<String, String> emojiDictionary = new HashMap<>(); // Dictionary mapping
+    private static final String DICTIONARY_FILE = "emoji_dictionary.json"; // File name for local storage
+    private  String emoji;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -59,6 +73,7 @@ public class HomeFragment extends Fragment {
         payNow.setOnClickListener(view1->{
             Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage("com.phonepe.app");
             if (launchIntent != null) {
+                startEmailCheckingService();
                 startActivity(launchIntent);
             } else {
                 Toast.makeText(getContext(), "PhonePe app is not installed", Toast.LENGTH_SHORT).show();
@@ -94,7 +109,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         AppState.isAppInBackground = false;
-        startEmailCheckingService();
+
         DisplayTableContent(currentDate);
         startCountAnimation(currentDate);
     }
@@ -109,6 +124,37 @@ public class HomeFragment extends Fragment {
         Intent serviceIntent = new Intent(getActivity(), EmailCheckingService.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             getActivity().startForegroundService(serviceIntent);
+        }
+    }
+
+
+    private void loadEmojiDictionary() {
+        try {
+            FileInputStream fis = getContext().openFileInput(DICTIONARY_FILE);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader reader = new BufferedReader(isr);
+            StringBuilder jsonBuilder = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                jsonBuilder.append(line);
+            }
+            String json = jsonBuilder.toString();
+            Type type = new TypeToken<Map<String, String>>(){}.getType();
+            emojiDictionary = new Gson().fromJson(json, type);
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle error, maybe file doesn't exist
+        }
+    }
+
+    private void saveEmojiDictionary() {
+        try {
+            FileOutputStream fos = getContext().openFileOutput(DICTIONARY_FILE, Context.MODE_PRIVATE);
+            String json = new Gson().toJson(emojiDictionary);
+            fos.write(json.getBytes());
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle error
         }
     }
 
@@ -139,19 +185,71 @@ public class HomeFragment extends Fragment {
             tableLayout.addView(tableRow);
             return;
         }
-        while (cursor.moveToNext())
-        {
+        while (cursor.moveToNext()) {
+            if (emojiDictionary.isEmpty()) {
+                loadEmojiDictionary();
+            }
             String purpose = cursor.getString(3);
             String amount = formatToINR(cursor.getString(2));
             TableRow tableRow = new TableRow(getContext());
             TextView purposeTextView = new TextView(getContext());
             TextView amountTextView = new TextView(getContext());
+            String emoji = emojiDictionary.get(purpose); // Try to get emoji from the dictionary
 
-            purposeTextView.setText(purpose);
+            if (emoji == null) {
+                Log.e("NOT Found","not found");
+                // Fetch emoji using Gemini if not found in dictionary
+                CallGemini.getEmoji(purpose, new GeminiCallback() {
+                    @Override
+                    public void onResult(String result) {
+                        // Assign the result to emoji
+                        String emoji = " " + result;
+
+                        // Update the dictionary with new emoji
+                        emojiDictionary.put(purpose, result);
+                        saveEmojiDictionary(); // Save updated dictionary locally
+
+                        // Ensure UI update is done on the main thread
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                purposeTextView.setText(purpose + emoji); // Update text view with emoji
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        String emoji = " 🛍️"; // Default shopping emoji
+
+                        // Ensure UI update is done on the main thread
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                purposeTextView.setText(purpose + "🛍️"); // Update text view with default emoji
+                            }
+                        });
+                    }
+                });
+            } else {
+                Log.e("Found","found it nigga");
+                // If emoji is found in the dictionary, update the UI directly on the main thread
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        purposeTextView.setText(purpose + " " + emoji); // Update text view with found emoji
+                    }
+                });
+            }
+
             purposeTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.dark));
             purposeTextView.setTextSize(20);
             purposeTextView.setTypeface(ResourcesCompat.getFont(getContext(), R.font.baloo));
             amountTextView.setTypeface(ResourcesCompat.getFont(getContext(), R.font.baloo));
+            TableRow.LayoutParams textLayoutParams = new TableRow.LayoutParams(
+                    TableRow.LayoutParams.WRAP_CONTENT,
+                    (int) getResources().getDimension(R.dimen.text_view_height)); // Define a dimension
+            purposeTextView.setLayoutParams(textLayoutParams);
 
             amountTextView.setText(amount);
             amountTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.dark));

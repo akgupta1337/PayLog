@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,7 +16,6 @@ import androidx.core.content.FileProvider;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -148,13 +146,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return exists;
     }
-    public Cursor getData(String month) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String MonthAbbreviation = MONTH_MAP.get(month);
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + Date + " LIKE '%" + MonthAbbreviation + "%'";
+    public Cursor getTotalSpentByDate(String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT DATE, SUM(AMOUNT) as AMOUNT " +
+                "FROM " + TABLE_NAME + " " +
+                "WHERE DATE LIKE '%" + date + "%' " +  // Using LIKE for the date comparison
+                "GROUP BY DATE";
         Cursor cursor = db.rawQuery(query, null);
         return cursor;
     }
+
+
+
 
     public Cursor getTodayData(String date) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -162,12 +165,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         return cursor;
     }
+    public String getFormattedTodayData(String currentDate) {
+
+        Cursor cursor = getTodayData(currentDate);
+        StringBuilder formattedData = new StringBuilder();
+
+        // Iterate through the cursor and format the data
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String date = cursor.getString(cursor.getColumnIndex("DATE")).trim();
+                String merchant = cursor.getString(cursor.getColumnIndex("MERCHANT")).trim();
+                String amount = cursor.getString(cursor.getColumnIndex("AMOUNT")).trim();
+                String purpose = cursor.getString(cursor.getColumnIndex("PURPOSE")).trim();
+                String sub_purpose = cursor.getString(cursor.getColumnIndex("SUB_PURPOSE")).trim();
+
+
+                formattedData.append("Date: ").append(date)
+                        .append(", Merchant: ").append(merchant)
+                        .append(", Amount: ").append(amount)
+                        .append(", Purpose: ").append(purpose)
+                        .append(", Sub_Purpose: ").append(sub_purpose)
+                        .append("\n");
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close(); // Close the cursor to prevent memory leaks
+        return formattedData.toString(); // Return the formatted string
+    }
+
+
     public Cursor getSubPurposeSumByDate(String date) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT SUB_PURPOSE, SUM(AMOUNT) as TOTAL_AMOUNT " +
+        String query = "SELECT PURPOSE, SUM(AMOUNT) as TOTAL_AMOUNT " +
                 "FROM " + TABLE_NAME + " " +
                 "WHERE DATE LIKE '%" + date + "%' " +
-                "GROUP BY SUB_PURPOSE";
+                "GROUP BY PURPOSE";
         Cursor cursor =  db.rawQuery(query, null);
         return  cursor;
     }

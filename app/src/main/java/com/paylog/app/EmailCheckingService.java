@@ -49,8 +49,8 @@ public class EmailCheckingService extends Service {
     private Session session;
     private Store store;
     private Properties properties;
-    private final String stringUserName = "your username without @gmail.com";
-    private final String stringPassword = "your password";
+    private final String stringUserName = "your google user name here";
+    private final String stringPassword = "your google app password here";
     public static final String KEY_TEXT_REPLY = "key_text_reply";
     DatabaseHelper myDB;
     private boolean isConnected = false;
@@ -121,9 +121,23 @@ public class EmailCheckingService extends Service {
     private void handleIntent(Intent intent) {
         if (intent != null && intent.hasExtra("reply_text")) {
             Subpurpose = intent.getStringExtra("reply_text").strip();
-            addDataInBackground();
+
+            CallGemini.call(Subpurpose, new GeminiCallback() {
+                @Override
+                public void onResult(String result) {
+                    purpose = result;  // Assign the result to purpose
+                    addDataInBackground();  // Call this method after getting the result
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    addDataInBackground();
+                    // Handle failure if necessary
+                }
+            });
         }
     }
+
 
 
     private void createNotificationChannel() {
@@ -202,6 +216,7 @@ public class EmailCheckingService extends Service {
         }.execute();
     }
     public synchronized void readGmail() {
+        isStored = false;
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
 
@@ -242,7 +257,7 @@ public class EmailCheckingService extends Service {
             merchant = subarr[4];
             formattedDate = dateFormat.format(receivedDate);
             purpose = myDB.getMerchantPurpose(merchant);
-            isStored = false;
+
             showNotification(amount, merchant);
             message.setFlag(Flags.Flag.DELETED, true);
 

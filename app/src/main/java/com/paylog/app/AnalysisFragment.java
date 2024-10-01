@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -132,21 +135,21 @@ public class AnalysisFragment extends Fragment {
 
 
     private void setUpLineChart(String datee) {
+
         ArrayList<String> dateLabels = new ArrayList<>();
         ArrayList<Entry> entries = new ArrayList<>();
-        Cursor cursor = myDb.getTodayData(datee);
+        List<Pair<String, Float>> data = new ArrayList<>();  // Store formattedDate and amount together
 
+        Cursor cursor = myDb.getTodayData(datee);
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault());
         SimpleDateFormat outputFormat;
         if(todayButton.isSelected()){
-             outputFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-
+            outputFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
         }
         else{
-             outputFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
+            outputFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
         }
 
-        int index = 0;
         if (cursor.moveToFirst()) {
             do {
                 String dateString = cursor.getString(cursor.getColumnIndex("DATE"));
@@ -154,12 +157,10 @@ public class AnalysisFragment extends Fragment {
                 try {
                     Date date = inputFormat.parse(dateString);
                     String formattedDate = outputFormat.format(date);
-                    dateLabels.add(formattedDate);
-                    entries.add(new Entry(index, amount));
-                    index++;
+                    data.add(new Pair<>(formattedDate, amount));  // Add formatted date and amount to the list
+
                 } catch (ParseException e) {
-                    e.printStackTrace();
-                    // Skip this entry if date parsing fails
+                    e.printStackTrace(); // Skip this entry if date parsing fails
                 }
             } while (cursor.moveToNext());
         }
@@ -167,7 +168,25 @@ public class AnalysisFragment extends Fragment {
         cursor.close();
         myDb.close();
 
+        // Sort the data by the formatted date
+        Collections.sort(data, new Comparator<Pair<String, Float>>() {
+            @Override
+            public int compare(Pair<String, Float> o1, Pair<String, Float> o2) {
+                return o1.first.compareTo(o2.first);  // Compare formattedDate strings
+            }
+        });
+
+        // Add sorted data back to dateLabels and entries
+        int index = 0;
+        for (Pair<String, Float> pair : data) {
+            dateLabels.add(pair.first);
+            entries.add(new Entry(index, pair.second));
+            index++;
+        }
+
         LineDataSet lineDataSet = new LineDataSet(entries, "Money Spent");
+
+        // Existing configuration of LineDataSet...
 
         lineDataSet.setValueFormatter(new ValueFormatter() {
             @Override
@@ -245,7 +264,7 @@ public class AnalysisFragment extends Fragment {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    String subPurpose = cursor.getString(cursor.getColumnIndex("SUB_PURPOSE"));
+                    String subPurpose = cursor.getString(cursor.getColumnIndex("PURPOSE"));
                     float totalAmount = cursor.getFloat(cursor.getColumnIndex("TOTAL_AMOUNT"));
                     pieEntryList.add(new PieEntry(totalAmount, subPurpose));
                 } while (cursor.moveToNext());

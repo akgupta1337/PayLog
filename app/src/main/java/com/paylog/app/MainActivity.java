@@ -27,13 +27,14 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment homeFragment = new HomeFragment();
     AnalysisFragment analysisFragment = new AnalysisFragment();
     ExportFragment exportFragment = new ExportFragment();
+    AssistantFragment assistantFragment = new AssistantFragment();
     private final int RC_Notification = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppState.isAppInBackground = false;
 
-        startService();
+//        startService();
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.export) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, exportFragment).commit();
                     return true;
+                } else if (itemId == R.id.assistant){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, assistantFragment).commit();
+                    return true;
                 }
                 return false;
             }
@@ -66,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onActivityResumed(Activity activity) {
                 // Log when the app comes to the foreground
-                startService();
+//                startService();
             }
 
             @Override
@@ -82,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
             public void onActivityStarted(Activity activity) {}
 
             @Override
-            public void onActivityStopped(Activity activity) {}
+            public void onActivityStopped(Activity activity) {
+                AppState.isAppInBackground = true;
+            }
 
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle outState) {}

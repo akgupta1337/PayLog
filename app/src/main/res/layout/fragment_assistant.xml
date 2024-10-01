@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/google_gemini_icon"
+        android:translationZ="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top_frame"/>
+
+    <!-- Top Colour -->
+    <FrameLayout
+        android:id="@+id/top_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C6FFC1"/>
+
+    <!-- Middle Colour -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/middle_frame"
+        android:layout_width="match_parent"
+        android:layout_height="680dp"
+        android:background="@drawable/nav_bg2"
+        android:elevation="30dp"
+        android:padding="10dp"
+        android:translationZ="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Chat History RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/inputArea"
+            android:background="@android:color/white"
+            android:scrollbars="vertical"/>
+
+        <!-- User Input Area -->
+        <LinearLayout
+            android:id="@+id/inputArea"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="100dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <!-- User Input EditText -->
+            <EditText
+                android:id="@+id/inputItem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:hint="Type your query here"
+                android:textColor="#000"
+                android:layout_marginBottom="0dp"
+                android:paddingBottom="16dp"
+                android:layout_weight="1"/>
+
+            <!-- Send Button -->
+            <Button
+                android:id="@+id/callapi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Send"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Assistant Title -->
+    <TextView
+        android:id="@+id/assistant_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bungee"
+        android:text="Nimbo Assistant"
+        android:textAlignment="center"
+        android:textColor="#334443"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/middle_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

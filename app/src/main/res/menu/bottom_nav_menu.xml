@@ -3,11 +3,15 @@
     <item android:id="@+id/home"
         android:title="Dashboard"
         android:icon="@drawable/home_icon"/>
+    <item android:id="@+id/assistant"
+        android:title="Assistant"
+        android:icon="@drawable/baseline_assistant_24"/>
     <item android:id="@+id/analysis"
         android:title="Analysis"
         android:icon="@drawable/pie_chart_icon"/>
     <item android:id="@+id/export"
         android:title="Export"
         android:icon="@drawable/forward_arrow_icon"/>
+
 
 </menu>
