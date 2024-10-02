@@ -40,7 +40,7 @@ First, I tried asking the user to enter the amount in our app and scan a QR code
 Second, I thought about what actions are triggered every time a payment occurs. I found that SMS notifications were one of them. However, after making some random payments, I discovered that banks do not always send SMS for every payment.
 
 Third and finally, I had lost all hope until I opened my Gmail and saw that all the payments I made through PhonePe were there. That's when it clicked. I sat down, studied IMPS, and the Jakarta Mail API, and got it working.  
-*PS: A few months later, I don't know how, but it seems like they are not sending it via email every time (I'm heartbroken now ;-;)*
+
 
 ## Finally
 
